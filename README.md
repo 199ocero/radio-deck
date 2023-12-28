@@ -47,11 +47,11 @@ RadioDeck::make('name')
         'linux' => 'heroicon-m-computer-desktop',
     ])
     ->required()
-    ->iconSize(IconSize::Large) // Small | Medium | Large | sm | md | lg
-    ->iconPosition(IconPosition::Before) // Before | After
-    ->alignment(Alignment::Center) // Start | Center | End
+    ->iconSize(IconSize::Large) // Small | Medium | Large | (string - sm | md | lg)
+    ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
+    ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
     ->columnSpanFull()
-    ->color('primary')
+    ->color('primary') // danger | gray | info | primary | success | warning
     ->columns(3)
     ->required(),
 ```
