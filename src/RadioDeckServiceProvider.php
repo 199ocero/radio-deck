@@ -103,8 +103,8 @@ class RadioDeckServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('radio-deck', __DIR__ . '/../resources/dist/components/radio-deck.js'),
-            Css::make('radio-deck-styles', __DIR__ . '/../resources/dist/radio-deck.css'),
-            Js::make('radio-deck-scripts', __DIR__ . '/../resources/dist/radio-deck.js'),
+            // Css::make('radio-deck-styles', __DIR__ . '/../resources/dist/radio-deck.css'),
+            // Js::make('radio-deck-scripts', __DIR__ . '/../resources/dist/radio-deck.js'),
         ];
     }
 

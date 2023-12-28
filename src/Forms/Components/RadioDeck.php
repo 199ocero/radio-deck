@@ -16,7 +16,7 @@ class RadioDeck extends Radio
 
     protected array | Closure | null $icons = null;
 
-    protected string $view = 'filament-radio-deck::forms.components.radio-deck';
+    protected string $view = 'radio-deck::forms.components.radio-deck';
 
     public function icons(array | Closure | null $icons): static
     {
