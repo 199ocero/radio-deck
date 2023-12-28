@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace JaOcero\RadioDeck\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RadioDeckCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'radio-deck';
 
     public $description = 'My command';
 

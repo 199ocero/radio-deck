@@ -1,5 +1,5 @@
 <?php
 
-use VendorName\Skeleton\Tests\TestCase;
+use JaOcero\RadioDeck\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
