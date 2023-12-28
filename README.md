@@ -15,6 +15,12 @@ You can install the package via composer:
 composer require jaocero/radio-deck
 ```
 
+To adhere to Filament's theming approach, you'll be required to employ a personalized theme in order to utilize this plugin.
+
+> **Note**
+> [Filament Docs](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme)
+
+
 ## Usage
 
 ```php
