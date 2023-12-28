@@ -17,9 +17,17 @@ composer require jaocero/radio-deck
 
 To adhere to Filament's theming approach, you'll be required to employ a personalized theme in order to utilize this plugin.
 
-> **Note**
+> **Custom Theme Installation**
 > [Filament Docs](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme)
 
+Add the plugin's views to your `tailwind.config.js` file.
+
+```js
+content: [
+    ...
+    './vendor/jaocero/radio-deck/resources/views/**/*.blade.php',
+]
+```
 
 ## Usage
 
