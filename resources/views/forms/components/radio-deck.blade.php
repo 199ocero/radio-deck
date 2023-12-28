@@ -71,13 +71,13 @@
                         },
                         "ring-1 ring-gray-200 dark:ring-gray-700 peer-checked:ring-2",
                         match ($getColor()) {
-                            'danger' => 'peer-checked:ring-danger-700',
-                            'gray' => 'peer-checked:ring-gray-700',
-                            'info' => 'peer-checked:ring-info-700',
-                            'primary' => 'peer-checked:ring-primary-700',
-                            'success' => 'peer-checked:ring-success-700',
-                            'warning' => 'peer-checked:ring-warning-700',
-                            default => 'peer-checked:ring-primary-700',
+                            'danger' => 'peer-checked:ring-danger-600 dark:peer-checked:ring-danger-700',
+                            'gray' => 'peer-checked:ring-gray-600 dark:peer-checked:ring-gray-700',
+                            'info' => 'peer-checked:ring-info-600 dark:peer-checked:ring-info-700',
+                            'primary' => 'peer-checked:ring-primary-600 dark:peer-checked:ring-primary-700',
+                            'success' => 'ring-success-600 dark:peer-checked:ring-success-700',
+                            'warning' => 'ring-warning-600 dark:peer-checked:ring-warning-700',
+                            default => 'ring-primary-600 dark:peer-checked:ring-primary-700',
                         },
                         "peer-disabled:bg-gray-100/50 dark:peer-disabled:bg-gray-700/50 peer-disabled:cursor-not-allowed",
                     ])>
@@ -96,13 +96,13 @@
                                         default => 'h-8 w-8',
                                     },
                                     match ($getColor()) {
-                                        'danger' => 'text-danger-400 dark:text-danger-500',
-                                        'gray' => 'text-gray-400 dark:text-gray-500',
-                                        'info' => 'text-info-400 dark:text-info-500',
-                                        'primary' => 'text-primary-400 dark:text-primary-500',
-                                        'success' => 'text-success-400 dark:text-success-500',
-                                        'warning' => 'text-warning-400 dark:text-warning-500',
-                                        default => 'text-gray-400 dark:text-gray-500',
+                                        'danger' => 'text-danger-600 dark:text-danger-500',
+                                        'gray' => 'text-gray-600 dark:text-gray-500',
+                                        'info' => 'text-info-600 dark:text-info-500',
+                                        'primary' => 'text-primary-600 dark:text-primary-500',
+                                        'success' => 'text-success-600 dark:text-success-500',
+                                        'warning' => 'text-warning-600 dark:text-warning-500',
+                                        default => 'text-gray-600 dark:text-gray-500',
                                     }
                                 ])
                             />
