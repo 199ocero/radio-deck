@@ -4,7 +4,10 @@
     "keywords": [
         "jaocero",
         "laravel",
-        "radio-deck"
+        "radio-deck",
+        "filamentphp",
+        "filament-form",
+        "filament-plugin"
     ],
     "homepage": "https://github.com/jaocero/radio-deck",
     "support": {
