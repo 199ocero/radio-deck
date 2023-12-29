@@ -58,15 +58,6 @@ class RadioDeckServiceProvider extends PackageServiceProvider
         // Icon Registration
         FilamentIcon::register($this->getIcons());
 
-        // Handle Stubs
-        if (app()->runningInConsole()) {
-            foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
-                $this->publishes([
-                    $file->getRealPath() => base_path("stubs/radio-deck/{$file->getFilename()}"),
-                ], 'radio-deck-stubs');
-            }
-        }
-
         // Testing
         Testable::mixin(new TestsRadioDeck());
     }
