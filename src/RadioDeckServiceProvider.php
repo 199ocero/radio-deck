@@ -2,10 +2,7 @@
 
 namespace JaOcero\RadioDeck;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
@@ -32,26 +29,8 @@ class RadioDeckServiceProvider extends PackageServiceProvider
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('jaocero/radio-deck');
+                $command->askToStarRepoOnGitHub('jaocero/radio-deck');
             });
-
-        $configFileName = $package->shortName();
-
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
-        }
-
-        if (file_exists($package->basePath('/../database/migrations'))) {
-            $package->hasMigrations($this->getMigrations());
-        }
-
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-        }
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
@@ -60,6 +39,7 @@ class RadioDeckServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
+        //
     }
 
     public function packageBooted(): void
@@ -113,9 +93,7 @@ class RadioDeckServiceProvider extends PackageServiceProvider
      */
     protected function getCommands(): array
     {
-        return [
-            RadioDeckCommand::class,
-        ];
+        return [];
     }
 
     /**
