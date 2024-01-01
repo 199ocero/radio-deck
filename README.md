@@ -37,39 +37,44 @@ use Filament\Support\Enums\IconSize;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\IconPosition;
 
-RadioDeck::make('name')
-    ->options([
-        'ios' => 'iOS',
-        'android' => 'Android',
-        'web' => 'Web',
-        'windows' => 'Windows',
-        'mac' => 'Mac',
-        'linux' => 'Linux',
-    ])
-    ->descriptions([
-        'ios' => 'iOS Mobile App',
-        'android' => 'Android Mobile App',
-        'web' => 'Web App',
-        'windows' => 'Windows Desktop App',
-        'mac' => 'Mac Desktop App',
-        'linux' => 'Linux Desktop App',
-    ])
-    ->icons([
-        'ios' => 'heroicon-m-device-phone-mobile',
-        'android' => 'heroicon-m-device-phone-mobile',
-        'web' => 'heroicon-m-globe-alt',
-        'windows' => 'heroicon-m-computer-desktop',
-        'mac' => 'heroicon-m-computer-desktop',
-        'linux' => 'heroicon-m-computer-desktop',
-    ])
-    ->required()
-    ->iconSize(IconSize::Large) // Small | Medium | Large | (string - sm | md | lg)
-    ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
-    ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
-    ->columnSpanFull()
-    ->color('primary') // danger | gray | info | primary | success | warning
-    ->columns(3)
-    ->required(),
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            RadioDeck::make('name')
+                ->options([
+                    'ios' => 'iOS',
+                    'android' => 'Android',
+                    'web' => 'Web',
+                    'windows' => 'Windows',
+                    'mac' => 'Mac',
+                    'linux' => 'Linux',
+                ])
+                ->descriptions([
+                    'ios' => 'iOS Mobile App',
+                    'android' => 'Android Mobile App',
+                    'web' => 'Web App',
+                    'windows' => 'Windows Desktop App',
+                    'mac' => 'Mac Desktop App',
+                    'linux' => 'Linux Desktop App',
+                ])
+                ->icons([
+                    'ios' => 'heroicon-m-device-phone-mobile',
+                    'android' => 'heroicon-m-device-phone-mobile',
+                    'web' => 'heroicon-m-globe-alt',
+                    'windows' => 'heroicon-m-computer-desktop',
+                    'mac' => 'heroicon-m-computer-desktop',
+                    'linux' => 'heroicon-m-computer-desktop',
+                ])
+                ->required()
+                ->iconSize(IconSize::Large) // Small | Medium | Large | (string - sm | md | lg)
+                ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
+                ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
+                ->color('primary') // supports all color custom or not
+                ->columns(3)
+        ])
+        ->columns('full');
+}
 ```
 
 ## Changelog
