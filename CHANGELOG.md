@@ -2,6 +2,15 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.1.1 - 2024-01-02
+
+### What's Changed
+
+* Fix icon not visible for boolean fields by @CodeWithDennis in https://github.com/199ocero/radio-deck/pull/3
+* Fix ring color not showing in light mode
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.1.0...v1.1.1
+
 ## Version 1.1.0: Added Support for Custom Colors and Code Cleanup - 2024-01-01
 
 Clean up some files, remove unnecessary variables and also make some minor performance nice tip thanks to @ralphjsmit at discord. This release also supports the custom color that will be visible to card ring and icons.
