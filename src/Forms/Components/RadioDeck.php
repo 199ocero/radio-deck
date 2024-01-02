@@ -30,7 +30,7 @@ class RadioDeck extends Radio
      */
     public function hasIcons($value): bool
     {
-        if ($value && !empty($this->getIcons())) {
+        if ($value !== null && !empty($this->getIcons())) {
             return array_key_exists($value, $this->getIcons());
         }
 
