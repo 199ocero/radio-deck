@@ -2,6 +2,20 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## Version 1.1.0: Added Support for Custom Colors and Code Cleanup - 2024-01-01
+
+Clean up some files, remove unnecessary variables and also make some minor performance nice tip thanks to @ralphjsmit at discord. This release also supports the custom color that will be visible to card ring and icons.
+
+### What's Changed
+
+* Cleanup files by @CodeWithDennis in https://github.com/199ocero/radio-deck/pull/1
+
+### New Contributors
+
+* @CodeWithDennis made their first contribution in https://github.com/199ocero/radio-deck/pull/1
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.0.0-beta...v1.1.0
+
 ## v1.0.0-beta - 2023-12-28
 
 First beta release
