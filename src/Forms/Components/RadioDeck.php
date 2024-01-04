@@ -3,10 +3,9 @@
 namespace JaOcero\RadioDeck\Forms\Components;
 
 use Closure;
-use Filament\Forms\Components\Radio;
-use Filament\Support\Concerns\HasIcon;
-use Filament\Support\Concerns\HasColor;
 use Filament\Support\Concerns\HasAlignment;
+use Filament\Support\Concerns\HasColor;
+use Filament\Support\Concerns\HasIcon;
 use Illuminate\Contracts\Support\Arrayable;
 use JaOcero\RadioDeck\Contracts\HasDescriptions;
 use JaOcero\RadioDeck\Contracts\HasIcons;
@@ -18,20 +17,20 @@ class RadioDeck extends IntermediaryRadio
     use HasColor;
     use HasIcon;
 
-    protected array | Arrayable | string | Closure | null $icons = null;
+    protected array|Arrayable|string|Closure|null $icons = null;
 
-    protected array | Arrayable | string | Closure $descriptions = [];
+    protected array|Arrayable|string|Closure $descriptions = [];
 
     protected string $view = 'radio-deck::forms.components.radio-deck';
 
-    public function icons(array | Arrayable | string | Closure | null $icons): static
+    public function icons(array|Arrayable|string|Closure|null $icons): static
     {
         $this->icons = $icons;
 
         return $this;
     }
 
-    public function descriptions(array | Arrayable | string | Closure $descriptions): static
+    public function descriptions(array|Arrayable|string|Closure $descriptions): static
     {
         $this->descriptions = $descriptions;
 
@@ -43,7 +42,7 @@ class RadioDeck extends IntermediaryRadio
      */
     public function hasIcons($value): bool
     {
-        if ($value !== null && !empty($this->getIcons())) {
+        if ($value !== null && ! empty($this->getIcons())) {
             return array_key_exists($value, $this->getIcons());
         }
 

@@ -3,33 +3,32 @@
 namespace JaOcero\RadioDeck\Intermediary;
 
 use Closure;
-
-use Filament\Forms\Components\Field;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Contracts\Support\Arrayable;
-use Filament\Forms\Components\Concerns\HasOptions;
-use Filament\Forms\Components\Concerns\HasGridDirection;
+use Filament\Forms\Components\Concerns\CanDisableOptions as ConcernCanDisableOptions;
+use Filament\Forms\Components\Concerns\CanDisableOptionsWhenSelectedInSiblingRepeaterItems;
 use Filament\Forms\Components\Concerns\CanFixIndistinctState;
 use Filament\Forms\Components\Concerns\HasExtraInputAttributes;
-use Filament\Forms\Components\Concerns\CanDisableOptions as ConcernCanDisableOptions;
+use Filament\Forms\Components\Concerns\HasGridDirection;
+use Filament\Forms\Components\Concerns\HasOptions;
 use Filament\Forms\Components\Contracts\CanDisableOptions as ContractsCanDisableOptions;
-use Filament\Forms\Components\Concerns\CanDisableOptionsWhenSelectedInSiblingRepeaterItems;
+use Filament\Forms\Components\Field;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
 
 class IntermediaryRadio extends Field implements ContractsCanDisableOptions
 {
-    use ConcernCanDisableOptions;
     use CanDisableOptionsWhenSelectedInSiblingRepeaterItems;
     use CanFixIndistinctState;
+    use ConcernCanDisableOptions;
     use HasExtraInputAttributes;
     use HasGridDirection;
     use HasOptions;
 
-    protected array | string | Arrayable | Closure $descriptions = [];
+    protected array|string|Arrayable|Closure $descriptions = [];
 
     /**
      * @param  array<string | Htmlable> | Arrayable | string | Closure  $descriptions
      */
-    public function descriptions(array | Arrayable | string | Closure $descriptions): static
+    public function descriptions(array|Arrayable|string|Closure $descriptions): static
     {
         $this->descriptions = $descriptions;
 
@@ -47,7 +46,7 @@ class IntermediaryRadio extends Field implements ContractsCanDisableOptions
     /**
      * @param  array-key  $value
      */
-    public function getDescription($value): string | Htmlable | null
+    public function getDescription($value): string|Htmlable|null
     {
         return $this->getDescriptions()[$value] ?? null;
     }
