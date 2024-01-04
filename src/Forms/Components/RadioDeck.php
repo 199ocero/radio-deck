@@ -4,23 +4,36 @@ namespace JaOcero\RadioDeck\Forms\Components;
 
 use Closure;
 use Filament\Forms\Components\Radio;
-use Filament\Support\Concerns\HasAlignment;
-use Filament\Support\Concerns\HasColor;
 use Filament\Support\Concerns\HasIcon;
+use Filament\Support\Concerns\HasColor;
+use Filament\Support\Concerns\HasAlignment;
+use Illuminate\Contracts\Support\Arrayable;
+use JaOcero\RadioDeck\Contracts\HasDescriptions;
+use JaOcero\RadioDeck\Contracts\HasIcons;
+use JaOcero\RadioDeck\Intermediary\IntermediaryRadio;
 
-class RadioDeck extends Radio
+class RadioDeck extends IntermediaryRadio
 {
     use HasAlignment;
     use HasColor;
     use HasIcon;
 
-    protected array|Closure|null $icons = null;
+    protected array | Arrayable | string | Closure | null $icons = null;
+
+    protected array | Arrayable | string | Closure $descriptions = [];
 
     protected string $view = 'radio-deck::forms.components.radio-deck';
 
-    public function icons(array|Closure|null $icons): static
+    public function icons(array | Arrayable | string | Closure | null $icons): static
     {
         $this->icons = $icons;
+
+        return $this;
+    }
+
+    public function descriptions(array | Arrayable | string | Closure $descriptions): static
+    {
+        $this->descriptions = $descriptions;
 
         return $this;
     }
@@ -30,7 +43,7 @@ class RadioDeck extends Radio
      */
     public function hasIcons($value): bool
     {
-        if ($value !== null && ! empty($this->getIcons())) {
+        if ($value !== null && !empty($this->getIcons())) {
             return array_key_exists($value, $this->getIcons());
         }
 
@@ -42,11 +55,67 @@ class RadioDeck extends Radio
      */
     public function getIcons(): mixed
     {
-        return $this->evaluate($this->icons);
+        $icons = $this->evaluate($this->icons);
+
+        $enum = $icons;
+
+        if (is_string($enum) && enum_exists($enum)) {
+            if (is_a($enum, HasIcons::class, allow_string: true)) {
+                return collect($enum::cases())
+                    ->mapWithKeys(fn ($case) => [
+                        ($case?->value ?? $case->name) => $case->getIcons() ?? $case->name,
+                    ])
+                    ->all();
+            }
+
+            return collect($enum::cases())
+                ->mapWithKeys(fn ($case) => [
+                    ($case?->value ?? $case->name) => $case->name,
+                ])
+                ->all();
+        }
+
+        if ($icons instanceof Arrayable) {
+            $icons = $icons->toArray();
+        }
+
+        return $icons;
     }
 
     public function getIcon($value): ?string
     {
         return $this->getIcons()[$value] ?? null;
+    }
+
+    /**
+     * @return array<string | Htmlable>
+     */
+    public function getDescriptions(): array
+    {
+        $descriptions = $this->evaluate($this->descriptions);
+
+        $enum = $descriptions;
+
+        if (is_string($enum) && enum_exists($enum)) {
+            if (is_a($enum, HasDescriptions::class, allow_string: true)) {
+                return collect($enum::cases())
+                    ->mapWithKeys(fn ($case) => [
+                        ($case?->value ?? $case->name) => $case->getDescriptions() ?? $case->name,
+                    ])
+                    ->all();
+            }
+
+            return collect($enum::cases())
+                ->mapWithKeys(fn ($case) => [
+                    ($case?->value ?? $case->name) => $case->name,
+                ])
+                ->all();
+        }
+
+        if ($descriptions instanceof Arrayable) {
+            $descriptions = $descriptions->toArray();
+        }
+
+        return $descriptions;
     }
 }
