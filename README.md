@@ -76,6 +76,82 @@ public static function form(Form $form): Form
         ->columns('full');
 }
 ```
+You can also utilize an Enum class for `->options()`, `->descriptions()`, and `->icons()` . Here's an example of how to create a simple enum class for this purpose:
+```php
+<?php
+
+namespace App\Filament\Enums;
+
+use Filament\Support\Contracts\HasLabel;
+use JaOcero\RadioDeck\Contracts\HasDescriptions;
+use JaOcero\RadioDeck\Contracts\HasIcons;
+
+enum AssetType: string implements HasLabel, HasDescriptions, HasIcons
+{
+    case iOs = 'ios';
+    case Android = 'android';
+    case Web = 'web';
+    case Windows = 'windows';
+    case Mac = 'mac';
+    case Linux = 'linux';
+
+    public function getLabel(): ?string
+    {
+        return match ($this) {
+            self::iOs => 'iOS',
+            self::Android => 'Android',
+            self::Web => 'Web',
+            self::Windows => 'Windows',
+            self::Mac => 'Mac',
+            self::Linux => 'Linux',
+        };
+    }
+
+    public function getDescriptions(): ?string
+    {
+        return match ($this) {
+            self::iOs => 'iOS Mobile App',
+            self::Android => 'Android Mobile App',
+            self::Web => 'Web App',
+            self::Windows => 'Windows Desktop App',
+            self::Mac => 'Mac Desktop App',
+            self::Linux => 'Linux Desktop App',
+        };
+    }
+
+    public function getIcons(): ?string
+    {
+        return match ($this) {
+            self::iOs => 'heroicon-m-device-phone-mobile',
+            self::Android => 'heroicon-m-device-phone-mobile',
+            self::Web => 'heroicon-m-globe-alt',
+            self::Windows => 'heroicon-m-computer-desktop',
+            self::Mac => 'heroicon-m-computer-desktop',
+            self::Linux => 'heroicon-m-computer-desktop',
+        };
+    }
+}
+```
+After that, in your form, you can set it up like this:
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            RadioDeck::make('name')
+                ->options(AssetType::class)
+                ->descriptions(AssetType::class)
+                ->icons(AssetType::class)
+                ->required()
+                ->iconSize(IconSize::Large)
+                ->iconPosition(IconPosition::Before)
+                ->alignment(Alignment::Center)
+                ->color('danger')
+                ->columns(3),
+        ])
+        ->columns('full');
+}
+```
 
 ## Changelog
 
