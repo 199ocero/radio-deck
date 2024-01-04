@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.1.2 - 2024-01-04
+
+### What's Changed
+
+* support enums for descriptions and icons by @199ocero in https://github.com/199ocero/radio-deck/pull/5
+
+### New Contributors
+
+* @199ocero made their first contribution in https://github.com/199ocero/radio-deck/pull/5
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2024-01-02
 
 ### What's Changed
