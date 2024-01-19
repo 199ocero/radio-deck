@@ -32,6 +32,9 @@
                     $color = $getColor();
                     $icon = $getIcon($value);
                     $iconSize = $getIconSize();
+                    $iconSizeSm = $getIconSizes('sm');
+                    $iconSizeMd = $getIconSizes('md');
+                    $iconSizeLg = $getIconSizes('lg');
                     $descriptionExists = $hasDescription($value);
                     $description = $getDescription($value);
                 @endphp
@@ -70,12 +73,12 @@
                         <x-filament::icon :icon="$icon" @class([
                             'flex-shrink-0',
                             match ($iconSize) {
-                                IconSize::Small => 'h-8 w-8',
-                                'sm' => 'h-8 w-8',
-                                IconSize::Medium => 'h-9 w-9',
-                                'md' => 'h-9 w-9',
-                                IconSize::Large => 'h-10 w-10',
-                                'lg' => 'h-10 w-10',
+                                IconSize::Small => $iconSizeSm ?: 'h-8 w-8',
+                                'sm' => $iconSizeSm ?: 'h-8 w-8',
+                                IconSize::Medium => $iconSizeMd ?: 'h-9 w-9',
+                                'md' => $iconSizeMd ?: 'h-9 w-9',
+                                IconSize::Large => $iconSizeLg ?: 'h-10 w-10',
+                                'lg' => $iconSizeLg ?: 'h-10 w-10',
                                 default => 'h-8 w-8',
                             },
                             match ($color) {
