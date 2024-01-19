@@ -73,10 +73,10 @@ public static function form(Form $form): Form
                 ->required()
                 ->iconSize(IconSize::Large) // Small | Medium | Large | (string - sm | md | lg)
                 ->iconSizes([ // Customize the values for each icon size
-                        'sm' => 'h-12 w-12',
-                        'md' => 'h-14 w-14',
-                        'lg' => 'h-16 w-16',
-                    ])
+                    'sm' => 'h-12 w-12',
+                    'md' => 'h-14 w-14',
+                    'lg' => 'h-16 w-16',
+                ])
                 ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
                 ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
                 ->gap('gap-5') // Gap between Icon and Description (Any TailwindCSS gap-* utility)
