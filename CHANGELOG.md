@@ -2,6 +2,14 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.1 - 2024-01-19
+
+### What's Changed
+
+* Additional Method to customize the icon sizes by @AlexisSerneels in https://github.com/199ocero/radio-deck/pull/7
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.0...v1.2.1
+
 ## v1.2.0 - 2024-01-19
 
 ### What's Changed
