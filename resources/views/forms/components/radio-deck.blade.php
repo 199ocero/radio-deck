@@ -26,6 +26,9 @@
                     $iconExists = $hasIcons($value);
                     $iconPosition = $getIconPosition();
                     $alignment = $getAlignment();
+                    $direction = $getDirection();
+                    $gap = $getGap();
+                    $padding = $getPadding();
                     $color = $getColor();
                     $icon = $getIcon($value);
                     $iconSize = $getIconSize();
@@ -33,7 +36,13 @@
                     $description = $getDescription($value);
                 @endphp
                 <div @class([
-                    'flex px-4 py-2 w-full text-sm leading-6 rounded-lg gap-5 bg-white dark:bg-gray-900',
+                    'flex w-full text-sm leading-6 rounded-lg bg-white dark:bg-gray-900',
+                    $padding ?: 'px-4 py-2',
+                    $gap ?: 'gap-5',
+                    match ($direction) {
+                        'column' => 'flex-col',
+                        default => 'flex-row',
+                    },
                     $iconExists
                         ? match ($iconPosition) {
                             IconPosition::Before, 'before' => 'justify-start',
@@ -77,13 +86,13 @@
                             \Filament\Support\get_color_css_variables($color, shades: [600, 500]) => $color !== 'gray',
                         ]) />
                     @endif
-                    <div class="place-items-start">
+                    <div {{ $getExtraOptionsAttributeBag()->merge(['class' =>'place-items-start']) }}>
                         <span class="font-medium text-gray-950 dark:text-white">
                             {{ $label }}
                         </span>
 
                         @if ($descriptionExists)
-                            <p class="text-gray-500 dark:text-gray-400">
+                            <p {{ $getExtraDescriptionsAttributeBag()->merge(['class' =>'text-gray-500 dark:text-gray-400']) }}>
                                 {{ $description }}
                             </p>
                         @endif

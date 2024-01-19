@@ -74,6 +74,15 @@ public static function form(Form $form): Form
                 ->iconSize(IconSize::Large) // Small | Medium | Large | (string - sm | md | lg)
                 ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
                 ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
+                ->gap('gap-5') // Gap between Icon and Description (Any TailwindCSS gap-* utility)
+                ->padding('px-4 px-6') // Padding around the deck (Any TailwindCSS padding utility)
+                ->direction('column') // Column | Row (Allows to place the Icon on top)
+                ->extraOptionsAttributes([ // Extra Attributes to add to the option HTML element
+                    'class' => 'text-3xl leading-none w-full flex flex-col items-center justify-center p-4'
+                ])
+                ->extraDescriptionsAttributes([ // Extra Attributes to add to the description HTML element
+                    'class' => 'text-sm font-light text-center'
+                ])
                 ->color('primary') // supports all color custom or not
                 ->columns(3)
         ])

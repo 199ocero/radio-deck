@@ -10,12 +10,22 @@ use Illuminate\Contracts\Support\Arrayable;
 use JaOcero\RadioDeck\Contracts\HasDescriptions;
 use JaOcero\RadioDeck\Contracts\HasIcons;
 use JaOcero\RadioDeck\Intermediary\IntermediaryRadio;
+use JaOcero\RadioDeck\Traits\HasDirection;
+use JaOcero\RadioDeck\Traits\HasExtraDescriptionsAttributes;
+use JaOcero\RadioDeck\Traits\HasExtraOptionsAttributes;
+use JaOcero\RadioDeck\Traits\HasGap;
+use JaOcero\RadioDeck\Traits\HasPadding;
 
 class RadioDeck extends IntermediaryRadio
 {
     use HasAlignment;
     use HasColor;
     use HasIcon;
+    use HasGap;
+    use HasPadding;
+    use HasDirection;
+    use HasExtraOptionsAttributes;
+    use HasExtraDescriptionsAttributes;
 
     protected array|Arrayable|string|Closure|null $icons = null;
 
