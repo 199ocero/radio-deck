@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.0 - 2024-01-19
+
+### What's Changed
+
+* Additional methods to allow more customization by @AlexisSerneels in https://github.com/199ocero/radio-deck/pull/6
+
+### New Contributors
+
+* @AlexisSerneels made their first contribution in https://github.com/199ocero/radio-deck/pull/6
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.1.2...v1.2.0
+
 ## v1.1.2 - 2024-01-04
 
 ### What's Changed
