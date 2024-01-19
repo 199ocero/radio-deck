@@ -23,7 +23,6 @@ class RadioDeck extends IntermediaryRadio
     use HasColor;
     use HasDirection;
     use HasExtraDescriptionsAttributes;
-    use HasIconSizes;
     use HasExtraOptionsAttributes;
     use HasGap;
     use HasIcon;
