@@ -14,6 +14,7 @@ use JaOcero\RadioDeck\Traits\HasDirection;
 use JaOcero\RadioDeck\Traits\HasExtraDescriptionsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraOptionsAttributes;
 use JaOcero\RadioDeck\Traits\HasGap;
+use JaOcero\RadioDeck\Traits\HasIconSizes;
 use JaOcero\RadioDeck\Traits\HasPadding;
 
 class RadioDeck extends IntermediaryRadio
@@ -26,6 +27,7 @@ class RadioDeck extends IntermediaryRadio
     use HasDirection;
     use HasExtraOptionsAttributes;
     use HasExtraDescriptionsAttributes;
+    use HasIconSizes;
 
     protected array|Arrayable|string|Closure|null $icons = null;
 
