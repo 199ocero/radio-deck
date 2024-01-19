@@ -26,8 +26,8 @@ class RadioDeck extends IntermediaryRadio
     use HasExtraOptionsAttributes;
     use HasGap;
     use HasIcon;
-    use HasPadding;
     use HasIconSizes;
+    use HasPadding;
 
     protected array|Arrayable|string|Closure|null $icons = null;
 

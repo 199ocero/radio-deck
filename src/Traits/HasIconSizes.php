@@ -2,9 +2,6 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
-use Filament\Support\Enums\IconPosition;
-use Filament\Support\Enums\IconSize;
-
 trait HasIconSizes
 {
     protected array|Closure|null $iconSizes = [];
@@ -20,5 +17,4 @@ trait HasIconSizes
     {
         return $this->evaluate($this->iconSizes[$size] ?? null);
     }
-
 }
