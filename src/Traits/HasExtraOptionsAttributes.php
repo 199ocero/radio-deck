@@ -14,7 +14,7 @@ trait HasExtraOptionsAttributes
     /**
      * @param  array<mixed> | Closure  $attributes
      */
-    public function extraOptionsAttributes(array | Closure $attributes, bool $merge = false): static
+    public function extraOptionsAttributes(array|Closure $attributes, bool $merge = false): static
     {
         if ($merge) {
             $this->extraOptionsAttributes[] = $attributes;
