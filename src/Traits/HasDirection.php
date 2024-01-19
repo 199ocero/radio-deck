@@ -2,9 +2,6 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
-use Filament\Support\Enums\IconPosition;
-use Filament\Support\Enums\IconSize;
-
 trait HasDirection
 {
     protected string|Closure|null $direction = null;
@@ -20,5 +17,4 @@ trait HasDirection
     {
         return $this->evaluate($this->direction);
     }
-
 }

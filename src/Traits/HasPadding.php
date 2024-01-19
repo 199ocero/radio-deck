@@ -2,9 +2,6 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
-use Filament\Support\Enums\IconPosition;
-use Filament\Support\Enums\IconSize;
-
 trait HasPadding
 {
     protected string|Closure|null $padding = null;
@@ -20,5 +17,4 @@ trait HasPadding
     {
         return $this->evaluate($this->padding);
     }
-
 }

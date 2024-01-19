@@ -2,9 +2,6 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
-use Filament\Support\Enums\IconPosition;
-use Filament\Support\Enums\IconSize;
-
 trait HasGap
 {
     protected string|Closure|null $gap = null;
@@ -20,5 +17,4 @@ trait HasGap
     {
         return $this->evaluate($this->gap);
     }
-
 }
