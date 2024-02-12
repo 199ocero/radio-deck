@@ -62,12 +62,12 @@
                     'ring-1 ring-gray-200 dark:ring-gray-700 peer-checked:ring-2',
                     'peer-disabled:bg-gray-100/50 dark:peer-disabled:bg-gray-700/50 peer-disabled:cursor-not-allowed',
                     match ($color) {
-                        'gray' => 'peer-checked:ring-gray-600 dark:peer-checked:ring-gray-700',
+                        'gray' => 'peer-checked:ring-gray-600 dark:peer-checked:ring-gray-500',
                         default
-                            => 'fi-color-custom peer-checked:ring-custom-600 dark:peer-checked:ring-custom-700',
+                            => 'fi-color-custom peer-checked:ring-custom-600 dark:peer-checked:ring-custom-500',
                     },
                 ]) @style([
-                    \Filament\Support\get_color_css_variables($color, shades: [600, 700]) => $color !== 'gray',
+                    \Filament\Support\get_color_css_variables($color, shades: [600, 500]) => $color !== 'gray',
                 ])>
                     @if ($iconExists)
                         <x-filament::icon :icon="$icon" @class([
