@@ -2,6 +2,14 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.2 - 2024-02-12
+
+### What's Changed
+
+* match ring color from filament input fields by @199ocero in https://github.com/199ocero/radio-deck/pull/11
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.1...v1.2.2
+
 ## v1.2.1 - 2024-01-19
 
 ### What's Changed
