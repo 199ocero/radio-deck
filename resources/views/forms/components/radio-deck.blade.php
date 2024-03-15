@@ -38,7 +38,7 @@
                     $descriptionExists = $hasDescription($value);
                     $description = $getDescription($value);
                 @endphp
-                <div @class([
+                <div {{ $getExtraCardsAttributeBag()->class([
                     'flex w-full text-sm leading-6 rounded-lg bg-white dark:bg-gray-900',
                     $padding ?: 'px-4 py-2',
                     $gap ?: 'gap-5',
@@ -66,7 +66,7 @@
                         default
                             => 'fi-color-custom peer-checked:ring-custom-600 dark:peer-checked:ring-custom-500',
                     },
-                ]) @style([
+                ]) }} @style([
                     \Filament\Support\get_color_css_variables($color, shades: [600, 500]) => $color !== 'gray',
                 ])>
                     @if ($iconExists)
