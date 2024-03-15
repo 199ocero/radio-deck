@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.4 - 2024-03-15
+
+### What's Changed
+
+* Allow customization of the card element by @OrangeJuiced in https://github.com/199ocero/radio-deck/pull/13
+
+### New Contributors
+
+* @OrangeJuiced made their first contribution in https://github.com/199ocero/radio-deck/pull/13
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.3...v1.2.4
+
 ## v1.2.3 - 2024-02-28
 
 ### What's Changed
