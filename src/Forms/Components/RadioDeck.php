@@ -7,6 +7,7 @@ use Filament\Support\Concerns\HasAlignment;
 use Filament\Support\Concerns\HasColor;
 use Filament\Support\Concerns\HasIcon;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
 use JaOcero\RadioDeck\Contracts\HasDescriptions;
 use JaOcero\RadioDeck\Contracts\HasIcons;
 use JaOcero\RadioDeck\Intermediary\IntermediaryRadio;
@@ -31,9 +32,9 @@ class RadioDeck extends IntermediaryRadio
     use HasIconSizes;
     use HasPadding;
 
-    protected array|Arrayable|string|Closure|null $icons = null;
+    protected Arrayable|Closure|array|null $icons = null;
 
-    protected array|Arrayable|string|Closure $descriptions = [];
+    protected Arrayable|Closure|array $descriptions = [];
 
     protected string $view = 'radio-deck::forms.components.radio-deck';
 
