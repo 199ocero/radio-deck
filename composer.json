@@ -62,10 +62,7 @@
         "laravel": {
             "providers": [
                 "JaOcero\\RadioDeck\\RadioDeckServiceProvider"
-            ],
-            "aliases": {
-                "RadioDeck": "JaOcero\\RadioDeck\\Facades\\RadioDeck"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
