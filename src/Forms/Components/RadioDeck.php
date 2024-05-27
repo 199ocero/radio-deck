@@ -32,9 +32,9 @@ class RadioDeck extends IntermediaryRadio
     use HasIconSizes;
     use HasPadding;
 
-    protected Arrayable|Closure|array|null $icons = null;
+    protected Arrayable|Closure|string|null $icons = null;
 
-    protected Arrayable|Closure|array $descriptions = [];
+    protected Arrayable|Closure|string $descriptions = [];
 
     protected string $view = 'radio-deck::forms.components.radio-deck';
 
