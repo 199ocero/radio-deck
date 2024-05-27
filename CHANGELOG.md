@@ -2,6 +2,14 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.6 - 2024-05-27
+
+### What's Changed
+
+* Correct type hint by @juliangums in https://github.com/199ocero/radio-deck/pull/17
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.5...v1.2.6
+
 ## v1.2.5 - 2024-05-27
 
 ### What's Changed
