@@ -23,7 +23,7 @@ class IntermediaryRadio extends Field implements ContractsCanDisableOptions
     use HasGridDirection;
     use HasOptions;
 
-    protected Arrayable|Closure|array $descriptions = [];
+    protected array|Arrayable|Closure|string $descriptions = [];
 
     /**
      * @param  array<string | Htmlable> | Arrayable | string | Closure  $descriptions
