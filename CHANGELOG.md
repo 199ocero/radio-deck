@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.5 - 2024-05-27
+
+### What's Changed
+
+* Remove broken facade by @juliangums in https://github.com/199ocero/radio-deck/pull/16
+
+### New Contributors
+
+* @juliangums made their first contribution in https://github.com/199ocero/radio-deck/pull/16
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.4...v1.2.5
+
 ## v1.2.4 - 2024-03-15
 
 ### What's Changed
