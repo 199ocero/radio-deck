@@ -2,6 +2,19 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.7 - 2024-05-30
+
+### What's Changed
+
+* Adds checkbox multiple support by @dmason30 in https://github.com/199ocero/radio-deck/pull/18
+* update read me by @199ocero in https://github.com/199ocero/radio-deck/pull/19
+
+### New Contributors
+
+* @dmason30 made their first contribution in https://github.com/199ocero/radio-deck/pull/18
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.6...v1.2.7
+
 ## v1.2.6 - 2024-05-27
 
 ### What's Changed
