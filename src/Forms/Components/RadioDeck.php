@@ -2,7 +2,6 @@
 
 namespace JaOcero\RadioDeck\Forms\Components;
 
-use App\Filament\Fields\CheckboxDeck;
 use Closure;
 use Filament\Support\Concerns\HasAlignment;
 use Filament\Support\Concerns\HasColor;
