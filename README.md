@@ -92,6 +92,7 @@ public static function form(Form $form): Form
                     'class' => 'text-sm font-light text-center'
                 ])
                 ->color('primary') // supports all color custom or not
+                ->multiple() // Select multiple card (it will also returns an array of selected card values)
                 ->columns(3)
         ])
         ->columns('full');
