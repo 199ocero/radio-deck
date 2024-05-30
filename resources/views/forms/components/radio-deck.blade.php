@@ -5,6 +5,7 @@
 
     $id = $getId();
     $isDisabled = $isDisabled();
+    $isMultiple = $isMultiple();
     $statePath = $getStatePath();
 @endphp
 
@@ -18,7 +19,9 @@
 
             <label class="flex cursor-pointer gap-x-3">
                 <input @disabled($shouldOptionBeDisabled) id="{{ $id }}-{{ $value }}"
-                    name="{{ $id }}" type="radio" value="{{ $value }}" wire:loading.attr="disabled"
+                    name="{{ $id }}"
+                    type="{{  $isMultiple ? 'checkbox' : 'radio' }}"
+                    value="{{ $value }}" wire:loading.attr="disabled"
                     {{ $applyStateBindingModifiers('wire:model') }}="{{ $statePath }}"
                     {{ $getExtraInputAttributeBag()->class(['peer hidden']) }} />
 

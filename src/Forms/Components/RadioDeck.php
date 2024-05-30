@@ -2,6 +2,7 @@
 
 namespace JaOcero\RadioDeck\Forms\Components;
 
+use App\Filament\Fields\CheckboxDeck;
 use Closure;
 use Filament\Support\Concerns\HasAlignment;
 use Filament\Support\Concerns\HasColor;
@@ -36,7 +37,16 @@ class RadioDeck extends IntermediaryRadio
 
     protected array|Arrayable|Closure|string $descriptions = [];
 
+    protected bool|Closure $isMultiple = false;
+
     protected string $view = 'radio-deck::forms.components.radio-deck';
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->default(fn (RadioDeck $component): mixed => $component->isMultiple() ? [] : null);
+    }
 
     public function icons(array|Arrayable|string|Closure|null $icons): static
     {
@@ -48,6 +58,13 @@ class RadioDeck extends IntermediaryRadio
     public function descriptions(array|Arrayable|string|Closure $descriptions): static
     {
         $this->descriptions = $descriptions;
+
+        return $this;
+    }
+
+    public function multiple(bool|Closure $condition = true): static
+    {
+        $this->isMultiple = $condition;
 
         return $this;
     }
@@ -131,5 +148,10 @@ class RadioDeck extends IntermediaryRadio
         }
 
         return $descriptions;
+    }
+
+    public function isMultiple(): bool
+    {
+        return (bool) $this->evaluate($this->isMultiple);
     }
 }
