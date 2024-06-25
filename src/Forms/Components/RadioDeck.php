@@ -45,6 +45,18 @@ class RadioDeck extends IntermediaryRadio
         parent::setUp();
 
         $this->default(fn (RadioDeck $component): mixed => $component->isMultiple() ? [] : null);
+
+        $this->afterStateHydrated(static function (RadioDeck $component, $state): void {
+            if (! $component->isMultiple()) {
+                return;
+            }
+
+            if (is_array($state)) {
+                return;
+            }
+
+            $component->state([]);
+        });
     }
 
     public function icons(array|Arrayable|string|Closure|null $icons): static
