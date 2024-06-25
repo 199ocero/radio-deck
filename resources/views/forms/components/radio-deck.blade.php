@@ -19,7 +19,9 @@
 
             <label class="flex cursor-pointer gap-x-3">
                 <input @disabled($shouldOptionBeDisabled) id="{{ $id }}-{{ $value }}"
-                    name="{{ $id }}"
+                   @if (! $isMultiple)
+                       name="{{ $id }}"
+                   @endif
                     type="{{  $isMultiple ? 'checkbox' : 'radio' }}"
                     value="{{ $value }}" wire:loading.attr="disabled"
                     {{ $applyStateBindingModifiers('wire:model') }}="{{ $statePath }}"
