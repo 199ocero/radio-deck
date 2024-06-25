@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.8 - 2024-06-25
+
+### What's Changed
+
+* Fix state when multiple is enabled by @stvtk in https://github.com/199ocero/radio-deck/pull/21
+
+### New Contributors
+
+* @stvtk made their first contribution in https://github.com/199ocero/radio-deck/pull/21
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.7...v1.2.8
+
 ## v1.2.7 - 2024-05-30
 
 ### What's Changed
