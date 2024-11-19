@@ -2,6 +2,8 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
+use Closure;
+
 trait HasIconSizes
 {
     protected array|Closure|null $iconSizes = [];

@@ -2,6 +2,7 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
+use Closure;
 use Illuminate\View\ComponentAttributeBag;
 
 trait HasExtraDescriptionsAttributes

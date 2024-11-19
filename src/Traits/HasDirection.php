@@ -2,6 +2,8 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
+use Closure;
+
 trait HasDirection
 {
     protected string|Closure|null $direction = null;

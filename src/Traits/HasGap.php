@@ -2,6 +2,8 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
+use Closure;
+
 trait HasGap
 {
     protected string|Closure|null $gap = null;
