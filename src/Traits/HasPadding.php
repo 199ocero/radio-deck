@@ -2,6 +2,8 @@
 
 namespace JaOcero\RadioDeck\Traits;
 
+use Closure;
+
 trait HasPadding
 {
     protected string|Closure|null $padding = null;
