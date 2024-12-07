@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.9 - 2024-12-07
+
+### What's Changed
+
+* Import `Closure` by @austincarpenter in https://github.com/199ocero/radio-deck/pull/26
+
+### New Contributors
+
+* @austincarpenter made their first contribution in https://github.com/199ocero/radio-deck/pull/26
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.8...v1.2.9
+
 ## v1.2.8 - 2024-06-25
 
 ### What's Changed
