@@ -57,7 +57,7 @@ class RadioDeckServiceProvider extends PackageServiceProvider
         FilamentIcon::register($this->getIcons());
 
         // Testing
-        Testable::mixin(new TestsRadioDeck());
+        Testable::mixin(new TestsRadioDeck);
     }
 
     protected function getAssetPackageName(): ?string
