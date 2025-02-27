@@ -2,6 +2,14 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.2.10 - 2025-02-27
+
+### What's Changed
+
+* add support for laravel 12 by @atmonshi in https://github.com/199ocero/radio-deck/pull/29
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.9...v1.2.10
+
 ## v1.2.9 - 2024-12-07
 
 ### What's Changed
