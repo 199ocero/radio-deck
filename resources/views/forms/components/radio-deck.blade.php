@@ -32,7 +32,7 @@
                     $iconPosition = $getIconPosition();
                     $alignment = $getAlignment();
                     $direction = $getDirection();
-                    $gap = $getGap();
+//                    $gap = $getGap();
                     $padding = $getPadding();
                     $color = $getColor();
                     $icon = $getIcon($value);
@@ -46,7 +46,7 @@
                 <div {{ $getExtraCardsAttributeBag()->class([
                     'flex w-full text-sm leading-6 rounded-lg bg-white dark:bg-gray-900',
                     $padding ?: 'px-4 py-2',
-                    $gap ?: 'gap-5',
+                    'gap-5',
                     match ($direction) {
                         'column' => 'flex-col',
                         default => 'flex-row',
