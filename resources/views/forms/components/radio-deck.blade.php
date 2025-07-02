@@ -10,8 +10,7 @@
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
-    <div {{ $getExtraAttributeBag()->grid($getColumns()) }}>
-        :two-xl="$getColumns('2xl')" is-grid @class(['gap-5'])>
+    <div {{ $getExtraAttributeBag(['class' => 'gap-5'])->grid($getColumns()) }}>
         @foreach ($getOptions() as $value => $label)
             @php
                 $shouldOptionBeDisabled = $isDisabled || $isOptionDisabled($value, $label);
