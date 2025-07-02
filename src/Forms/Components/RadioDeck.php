@@ -15,7 +15,6 @@ use JaOcero\RadioDeck\Traits\HasDirection;
 use JaOcero\RadioDeck\Traits\HasExtraCardsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraDescriptionsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraOptionsAttributes;
-use JaOcero\RadioDeck\Traits\HasGap;
 use JaOcero\RadioDeck\Traits\HasIconSizes;
 use JaOcero\RadioDeck\Traits\HasPadding;
 
@@ -27,7 +26,6 @@ class RadioDeck extends IntermediaryRadio
     use HasExtraCardsAttributes;
     use HasExtraDescriptionsAttributes;
     use HasExtraOptionsAttributes;
-    use HasGap;
     use HasIcon;
     use HasIconSizes;
     use HasPadding;

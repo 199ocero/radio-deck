@@ -10,7 +10,7 @@
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
-    <x-filament::grid :default="$getColumns('default')" :sm="$getColumns('sm')" :md="$getColumns('md')" :lg="$getColumns('lg')" :xl="$getColumns('xl')"
+    <div {{ $getExtraAttributeBag()->grid($getColumns()) }}>
         :two-xl="$getColumns('2xl')" is-grid @class(['gap-5'])>
         @foreach ($getOptions() as $value => $label)
             @php
@@ -108,5 +108,5 @@
                 </div>
             </label>
         @endforeach
-    </x-filament::grid>
+    </div>
 </x-dynamic-component>
