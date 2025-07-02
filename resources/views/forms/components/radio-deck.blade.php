@@ -10,8 +10,7 @@
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
-    <x-filament::grid :default="$getColumns('default')" :sm="$getColumns('sm')" :md="$getColumns('md')" :lg="$getColumns('lg')" :xl="$getColumns('xl')"
-        :two-xl="$getColumns('2xl')" is-grid @class(['gap-5'])>
+    <div {{ $getExtraAttributeBag(['class' => 'gap-5'])->grid($getColumns()) }}>
         @foreach ($getOptions() as $value => $label)
             @php
                 $shouldOptionBeDisabled = $isDisabled || $isOptionDisabled($value, $label);
@@ -32,7 +31,7 @@
                     $iconPosition = $getIconPosition();
                     $alignment = $getAlignment();
                     $direction = $getDirection();
-                    $gap = $getGap();
+//                    $gap = $getGap();
                     $padding = $getPadding();
                     $color = $getColor();
                     $icon = $getIcon($value);
@@ -46,7 +45,7 @@
                 <div {{ $getExtraCardsAttributeBag()->class([
                     'flex w-full text-sm leading-6 rounded-lg bg-white dark:bg-gray-900',
                     $padding ?: 'px-4 py-2',
-                    $gap ?: 'gap-5',
+                    'gap-5',
                     match ($direction) {
                         'column' => 'flex-col',
                         default => 'flex-row',
@@ -108,5 +107,5 @@
                 </div>
             </label>
         @endforeach
-    </x-filament::grid>
+    </div>
 </x-dynamic-component>
