@@ -3,6 +3,7 @@
 namespace JaOcero\RadioDeck\Forms\Components;
 
 use Closure;
+use Filament\Forms\Components\Concerns\HasHint;
 use Filament\Support\Concerns\HasAlignment;
 use Filament\Support\Concerns\HasColor;
 use Filament\Support\Concerns\HasIcon;
@@ -31,6 +32,7 @@ class RadioDeck extends IntermediaryRadio
     use HasIcon;
     use HasIconSizes;
     use HasPadding;
+    use HasHint;
 
     protected array|Arrayable|Closure|string|null $icons = null;
 
