@@ -2,6 +2,18 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## v1.3 - 2025-08-22
+
+### What's Changed
+
+* Filament v4 support by @d8vjork in https://github.com/199ocero/radio-deck/pull/34
+
+### New Contributors
+
+* @d8vjork made their first contribution in https://github.com/199ocero/radio-deck/pull/34
+
+**Full Changelog**: https://github.com/199ocero/radio-deck/compare/v1.2.10...v1.3
+
 ## v1.2.10 - 2025-02-27
 
 ### What's Changed
