@@ -6,6 +6,8 @@ use Closure;
 use Filament\Support\Concerns\HasAlignment;
 use Filament\Support\Concerns\HasColor;
 use Filament\Support\Concerns\HasIcon;
+use Filament\Support\Concerns\HasIconPosition;
+use Filament\Support\Concerns\HasIconSize;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use JaOcero\RadioDeck\Contracts\HasDescriptions;
@@ -15,7 +17,7 @@ use JaOcero\RadioDeck\Traits\HasDirection;
 use JaOcero\RadioDeck\Traits\HasExtraCardsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraDescriptionsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraOptionsAttributes;
-use JaOcero\RadioDeck\Traits\HasGap;
+use JaOcero\RadioDeck\Traits\HasOptionsGap;
 use JaOcero\RadioDeck\Traits\HasIconSizes;
 use JaOcero\RadioDeck\Traits\HasPadding;
 
@@ -27,8 +29,10 @@ class RadioDeck extends IntermediaryRadio
     use HasExtraCardsAttributes;
     use HasExtraDescriptionsAttributes;
     use HasExtraOptionsAttributes;
-    use HasGap;
+    use HasOptionsGap;
     use HasIcon;
+    use HasIconSize;
+    use HasIconPosition;
     use HasIconSizes;
     use HasPadding;
 

@@ -79,7 +79,7 @@ public static function form(Form $form): Form
                 ])
                 ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
                 ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
-                ->gap('gap-5') // Gap between Icon and Description (Any TailwindCSS gap-* utility)
+                ->optionsGap('gap-5') // Gap between Icon and Description (Any TailwindCSS gap-* utility)
                 ->padding('px-4 px-6') // Padding around the deck (Any TailwindCSS padding utility)
                 ->direction('column') // Column | Row (Allows to place the Icon on top)
                 ->extraCardsAttributes([ // Extra Attributes to add to the card HTML element
