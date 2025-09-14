@@ -4,31 +4,31 @@ namespace JaOcero\RadioDeck\Forms\Components;
 
 use Closure;
 use Filament\Support\Concerns\HasAlignment;
-use Filament\Support\Concerns\HasColor;
 use Filament\Support\Concerns\HasIcon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use JaOcero\RadioDeck\Contracts\HasDescriptions;
 use JaOcero\RadioDeck\Contracts\HasIcons;
 use JaOcero\RadioDeck\Intermediary\IntermediaryRadio;
-use JaOcero\RadioDeck\Traits\HasDirection;
+use JaOcero\RadioDeck\Traits\HasColors;
 use JaOcero\RadioDeck\Traits\HasExtraCardsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraDescriptionsAttributes;
 use JaOcero\RadioDeck\Traits\HasExtraOptionsAttributes;
 use JaOcero\RadioDeck\Traits\HasGap;
+use JaOcero\RadioDeck\Traits\HasIconPosition;
 use JaOcero\RadioDeck\Traits\HasIconSizes;
 use JaOcero\RadioDeck\Traits\HasPadding;
 
 class RadioDeck extends IntermediaryRadio
 {
     use HasAlignment;
-    use HasColor;
-    use HasDirection;
+    use HasColors;
     use HasExtraCardsAttributes;
     use HasExtraDescriptionsAttributes;
     use HasExtraOptionsAttributes;
     use HasGap;
     use HasIcon;
+    use HasIconPosition;
     use HasIconSizes;
     use HasPadding;
 

@@ -11,6 +11,13 @@
 
 Turn filament default radio button into a selectable card with icons, title and description.
 
+## Requirements
+
+- FilamentPHP v4.x
+- PHP 8.2+
+- Laravel v11.28+
+- Tailwind CSS v4.0+
+
 ## Installation
 
 You can install the package via composer:
@@ -19,18 +26,80 @@ You can install the package via composer:
 composer require jaocero/radio-deck
 ```
 
+### For FilamentPHP v4 Users
+
 To adhere to Filament's theming approach, you'll be required to employ a personalized theme in order to utilize this plugin.
 
 > **Custom Theme Installation**
-> [Filament Docs](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme)
+> [Filament v4 Docs - Creating a Custom Theme](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme)
 
-Add the plugin's views to your `tailwind.config.js` file.
+Instead of adding the plugin's views to your `tailwind.config.js` file, add the following source directive to your custom theme's CSS file (usually `resources/css/filament/admin/theme.css`):
+
+```css
+@source '../../../../vendor/jaocero/radio-deck/resources/views';
+```
+
+This will include the plugin's styles during the compilation process.
+
+## Migration from v3 to v4
+
+If you're upgrading from Radio Deck v3 to v4, please follow these steps:
+
+### 1. Update Dependencies
+
+```bash
+composer require jaocero/radio-deck:^4.0
+```
+
+### 2. Create a Custom Theme
+
+Since FilamentPHP v4 requires custom themes for plugins, you need to create one:
+
+```bash
+php artisan make:filament-theme
+```
+
+### 3. Update Theme Configuration
+
+**Remove** the old configuration from your `tailwind.config.js`:
 
 ```js
+// Remove this from tailwind.config.js
 content: [
     ...
-    './vendor/jaocero/radio-deck/resources/views/**/*.blade.php',
+    './vendor/jaocero/radio-deck/resources/views/**/*.blade.php', // Remove this line
 ]
+```
+
+**Add** the source directive to your theme's CSS file instead:
+
+```css
+/* Add this to resources/css/filament/admin/theme.css */
+@source '../../../../vendor/jaocero/radio-deck/resources/views';
+```
+
+### 4. Update Import Statements
+
+Update your import statements to use the new namespace structure:
+
+```php
+// Old (v3)
+use JaOcero\RadioDeck\Forms\Components\RadioDeck;
+
+// New (v4) - Same import, but make sure you're using v4
+use JaOcero\RadioDeck\Forms\Components\RadioDeck;
+```
+
+### 5. Method Changes
+
+Some method names have been updated for better consistency:
+
+```php
+// Old method
+->optionsGap('gap-4') 
+
+// New method (if you were using optionsGap)
+->gap('gap-4') // Use the general gap method instead
 ```
 
 ## Usage
@@ -71,34 +140,41 @@ public static function form(Form $form): Form
                     'linux' => 'heroicon-m-computer-desktop',
                 ])
                 ->required()
-                ->iconSize(IconSize::Large) // Small | Medium | Large | (string - sm | md | lg)
-                ->iconSizes([ // Customize the values for each icon size
+                ->iconSizes([
                     'sm' => 'h-12 w-12',
                     'md' => 'h-14 w-14',
                     'lg' => 'h-16 w-16',
                 ])
-                ->iconPosition(IconPosition::Before) // Before | After | (string - before | after)
-                ->alignment(Alignment::Center) // Start | Center | End | (string - start | center | end)
-                ->gap('gap-5') // Gap between Icon and Description (Any TailwindCSS gap-* utility)
-                ->padding('px-4 px-6') // Padding around the deck (Any TailwindCSS padding utility)
-                ->direction('column') // Column | Row (Allows to place the Icon on top)
-                ->extraCardsAttributes([ // Extra Attributes to add to the card HTML element
+                ->iconPosition(IconPosition::Before) // Before | After
+                ->alignment(Alignment::Center) // Start | Center | End
+                ->gap('gap-5') // Gap between elements
+                ->padding('px-4 py-6') // Padding around the deck
+                ->extraCardsAttributes([ // Extra attributes for card elements
                     'class' => 'rounded-xl'
                 ])
-                ->extraOptionsAttributes([ // Extra Attributes to add to the option HTML element
+                ->extraOptionsAttributes([ // Extra attributes for option elements
                     'class' => 'text-3xl leading-none w-full flex flex-col items-center justify-center p-4'
                 ])
-                ->extraDescriptionsAttributes([ // Extra Attributes to add to the description HTML element
+                ->extraDescriptionsAttributes([ // Extra attributes for description elements
                     'class' => 'text-sm font-light text-center'
                 ])
-                ->color('primary') // supports all color custom or not
-                ->multiple() // Select multiple card (it will also returns an array of selected card values)
+                ->color('primary') // Supports all Filament colors
+                ->colors([ // Individual colors per option
+                    'ios' => 'blue',
+                    'android' => 'green',
+                    'web' => 'purple',
+                ])
+                ->multiple() // Enable multiple selection (returns array)
                 ->columns(3)
         ])
         ->columns('full');
 }
 ```
-You can also utilize an Enum class for `->options()`, `->descriptions()`, and `->icons()` . Here's an example of how to create a simple enum class for this purpose:
+
+### Using Enums
+
+You can also utilize an Enum class for `->options()`, `->descriptions()`, and `->icons()`. Here's an example:
+
 ```php
 <?php
 
@@ -154,7 +230,9 @@ enum AssetType: string implements HasLabel, HasDescriptions, HasIcons
     }
 }
 ```
-After that, in your form, you can set it up like this:
+
+Usage with Enum:
+
 ```php
 public static function form(Form $form): Form
 {
@@ -165,7 +243,6 @@ public static function form(Form $form): Form
                 ->descriptions(AssetType::class)
                 ->icons(AssetType::class)
                 ->required()
-                ->iconSize(IconSize::Large)
                 ->iconPosition(IconPosition::Before)
                 ->alignment(Alignment::Center)
                 ->color('danger')
@@ -174,6 +251,25 @@ public static function form(Form $form): Form
         ->columns('full');
 }
 ```
+
+## Available Methods
+
+| Method | Description | Type |
+|--------|-------------|------|
+| `options()` | Set the available options | `array\|Enum\|Closure` |
+| `descriptions()` | Set descriptions for options | `array\|Enum\|Closure` |
+| `icons()` | Set icons for options | `array\|Enum\|Closure` |
+| `multiple()` | Enable multiple selection | `bool\|Closure` |
+| `color()` | Set default color | `string\|Closure` |
+| `colors()` | Set individual colors per option | `array\|Closure` |
+| `iconPosition()` | Set icon position (before/after) | `IconPosition\|string\|Closure` |
+| `iconSizes()` | Set custom icon sizes | `array\|string\|IconSize\|Closure` |
+| `alignment()` | Set content alignment | `Alignment\|string\|Closure` |
+| `gap()` | Set gap between elements | `string\|Closure` |
+| `padding()` | Set padding around cards | `string\|Closure` |
+| `extraCardsAttributes()` | Add extra attributes to cards | `array\|Closure` |
+| `extraOptionsAttributes()` | Add extra attributes to options | `array\|Closure` |
+| `extraDescriptionsAttributes()` | Add extra attributes to descriptions | `array\|Closure` |
 
 ## Changelog
 
