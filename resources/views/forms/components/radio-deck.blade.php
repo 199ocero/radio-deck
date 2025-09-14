@@ -1,6 +1,6 @@
 @php
-    use Filament\Support\Enums\IconPosition;
     use Filament\Support\Enums\Alignment;
+    use Filament\Support\Enums\IconPosition;
     use Filament\Support\Enums\IconSize;
 
     $id = $getId();
@@ -17,36 +17,33 @@
             @endphp
 
             <label class="flex cursor-pointer gap-x-3">
-                <input @disabled($shouldOptionBeDisabled) id="{{ $id }}-{{ $value }}"
-                    @if (!$isMultiple) name="{{ $id }}" @endif
-                    type="{{ $isMultiple ? 'checkbox' : 'radio' }}" value="{{ $value }}"
-                    wire:loading.attr="disabled" {{ $applyStateBindingModifiers('wire:model') }}="{{ $statePath }}"
+                <input id="{{ $id }}-{{ $value }}" type="{{ $isMultiple ? 'checkbox' : 'radio' }}"
+                    value="{{ $value }}" wire:loading.attr="disabled"
+                    {{ $applyStateBindingModifiers('wire:model') }}="{{ $statePath }}"
+                    @if (!$isMultiple) name="{{ $id }}" @endif @disabled($shouldOptionBeDisabled)
                     {{ $getExtraInputAttributeBag()->class(['peer hidden']) }} />
 
                 @php
                     $iconExists = $hasIcons($value);
                     $iconPosition = $getIconPosition();
                     $alignment = $getAlignment();
-                    $gap = $getGap();
+                    $gap = $getOptionsGap();
                     $padding = $getPadding();
-
                     $color = $getOptionColor($value);
-
                     $icon = $getIcon($value);
                     $descriptionExists = $hasDescription($value);
                     $description = $getDescription($value);
                 @endphp
+
                 <div {{ $getExtraCardsAttributeBag()->class([
-                    'flex w-full text-sm leading-6 rounded-lg bg-white dark:bg-gray-900',
+                    'flex w-full items-center rounded-lg bg-white text-sm leading-6 dark:bg-gray-900',
                     $padding ?: 'px-4 py-2',
                     $gap ?: 'gap-5',
-                    $iconExists
-                        ? match ($iconPosition) {
-                            'before' => 'justify-start',
-                            'after' => 'justify-between flex-row-reverse',
-                            default => 'justify-start',
-                        }
-                        : 'justify-start',
+                    match ($iconPosition) {
+                        IconPosition::Before, 'before' => 'justify-start',
+                        IconPosition::After, 'after' => 'justify-between flex-row-reverse',
+                        default => 'justify-start',
+                    },
                     match ($alignment) {
                         Alignment::Center, 'center' => 'items-center',
                         Alignment::Start, 'start' => 'items-start',
@@ -54,7 +51,7 @@
                         default => 'items-center',
                     },
                     'ring-1 ring-gray-200 dark:ring-gray-700 peer-checked:ring-2',
-                    'peer-disabled:bg-gray-100/50 dark:peer-disabled:bg-gray-700/50 peer-disabled:cursor-not-allowed',
+                    'peer-disabled:cursor-not-allowed peer-disabled:bg-gray-100/50 dark:peer-disabled:bg-gray-700/50',
                     match ($color) {
                         'gray' => 'peer-checked:ring-gray-600 dark:peer-checked:ring-gray-500',
                         default => 'fi-color-custom peer-checked:ring-custom-600 dark:peer-checked:ring-custom-500',
@@ -65,11 +62,8 @@
                     ])>
                     @if ($iconExists)
                         @php
-                            $iconSizeValue = $getIconSizes('md');
+                            $iconSizeValue = $getIconSize() ?? 'md';
 
-                            if ($iconSizeValue instanceof \Filament\Support\Enums\IconSize) {
-                                $iconSizeValue = $iconSizeValue->value;
-                            }
                             $iconSizeClass = match ($iconSizeValue) {
                                 'xs' => 'h-4 w-4',
                                 'sm' => 'h-5 w-5',
@@ -77,7 +71,6 @@
                                 'lg' => 'h-8 w-8',
                                 'xl' => 'h-10 w-10',
                                 '2xl' => 'h-12 w-12',
-                                null => 'h-6 w-6',
                                 default => $iconSizeValue,
                             };
                         @endphp
@@ -93,6 +86,7 @@
                             \Filament\Support\get_color_css_variables($color, shades: [600, 500]) => $color !== 'gray',
                         ]) />
                     @endif
+
                     <div {{ $getExtraOptionsAttributeBag()->merge(['class' => 'place-items-start']) }}>
                         <span class="font-medium text-gray-950 dark:text-white">
                             {{ $label }}

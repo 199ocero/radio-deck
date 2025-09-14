@@ -48,7 +48,7 @@ If you're upgrading from Radio Deck v3 to v4, please follow these steps:
 ### 1. Update Dependencies
 
 ```bash
-composer require jaocero/radio-deck:^4.0
+composer require jaocero/radio-deck:^2.0
 ```
 
 ### 2. Create a Custom Theme
@@ -83,10 +83,10 @@ content: [
 Update your import statements to use the new namespace structure:
 
 ```php
-// Old (v3)
+// Old (v1.x)
 use JaOcero\RadioDeck\Forms\Components\RadioDeck;
 
-// New (v4) - Same import, but make sure you're using v4
+// New (v2.x) - Same import, but make sure you're using v2.x
 use JaOcero\RadioDeck\Forms\Components\RadioDeck;
 ```
 
@@ -98,8 +98,8 @@ Some method names have been updated for better consistency:
 // Old method
 ->optionsGap('gap-4') 
 
-// New method (if you were using optionsGap)
-->gap('gap-4') // Use the general gap method instead
+// New method (renamed for clarity & to avoid conflicts with Filament’s built-in gap)
+->gap('gap-4')
 ```
 
 ## Usage
@@ -140,14 +140,10 @@ public static function form(Form $form): Form
                     'linux' => 'heroicon-m-computer-desktop',
                 ])
                 ->required()
-                ->iconSizes([
-                    'sm' => 'h-12 w-12',
-                    'md' => 'h-14 w-14',
-                    'lg' => 'h-16 w-16',
-                ])
+                ->iconSizes(IconSize::Medium) // Medium | Small | Large | ExtraLarge | TwoExtraLarge
                 ->iconPosition(IconPosition::Before) // Before | After
                 ->alignment(Alignment::Center) // Start | Center | End
-                ->gap('gap-5') // Gap between elements
+                ->optionGap('gap-5') // Gap between Options and Descriptions between the Icon
                 ->padding('px-4 py-6') // Padding around the deck
                 ->extraCardsAttributes([ // Extra attributes for card elements
                     'class' => 'rounded-xl'
@@ -158,16 +154,23 @@ public static function form(Form $form): Form
                 ->extraDescriptionsAttributes([ // Extra attributes for description elements
                     'class' => 'text-sm font-light text-center'
                 ])
-                ->color('primary') // Supports all Filament colors
-                ->colors([ // Individual colors per option
-                    'ios' => 'blue',
-                    'android' => 'green',
-                    'web' => 'purple',
-                ])
                 ->multiple() // Enable multiple selection (returns array)
+                ->colors('primary')
+                // or you can use an array of colors per option or you can use one color for all options
+                // ->colors([
+                //     'ios' => 'blue',
+                //     'android' => 'green',
+                //     'web' => 'purple',
+                // ])
                 ->columns(3)
-        ])
-        ->columns('full');
+                // or you can use how many columns every screen size
+                // ->columns([
+                //     'sm' => 1,
+                //     'md' => 2,
+                //     'lg' => 3,
+                // ])
+                ->columnSpanFull()
+        ]);
 }
 ```
 
@@ -245,31 +248,12 @@ public static function form(Form $form): Form
                 ->required()
                 ->iconPosition(IconPosition::Before)
                 ->alignment(Alignment::Center)
-                ->color('danger')
+                ->colors('primary')
                 ->columns(3),
         ])
         ->columns('full');
 }
 ```
-
-## Available Methods
-
-| Method | Description | Type |
-|--------|-------------|------|
-| `options()` | Set the available options | `array\|Enum\|Closure` |
-| `descriptions()` | Set descriptions for options | `array\|Enum\|Closure` |
-| `icons()` | Set icons for options | `array\|Enum\|Closure` |
-| `multiple()` | Enable multiple selection | `bool\|Closure` |
-| `color()` | Set default color | `string\|Closure` |
-| `colors()` | Set individual colors per option | `array\|Closure` |
-| `iconPosition()` | Set icon position (before/after) | `IconPosition\|string\|Closure` |
-| `iconSizes()` | Set custom icon sizes | `array\|string\|IconSize\|Closure` |
-| `alignment()` | Set content alignment | `Alignment\|string\|Closure` |
-| `gap()` | Set gap between elements | `string\|Closure` |
-| `padding()` | Set padding around cards | `string\|Closure` |
-| `extraCardsAttributes()` | Add extra attributes to cards | `array\|Closure` |
-| `extraOptionsAttributes()` | Add extra attributes to options | `array\|Closure` |
-| `extraDescriptionsAttributes()` | Add extra attributes to descriptions | `array\|Closure` |
 
 ## Changelog
 
