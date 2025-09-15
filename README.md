@@ -96,10 +96,10 @@ Some method names have been updated for better consistency:
 
 ```php
 // Old method
-->optionsGap('gap-4') 
+->gap('gap-4')
 
 // New method (renamed for clarity & to avoid conflicts with Filament’s built-in gap)
-->gap('gap-4')
+->optionsGap('gap-4') 
 ```
 
 ## Usage
