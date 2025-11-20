@@ -2,6 +2,7 @@
 
 namespace JaOcero\RadioDeck\Forms\Components;
 
+use BackedEnum;
 use Closure;
 use Filament\Support\Concerns\HasAlignment;
 use Filament\Support\Concerns\HasIcon;
@@ -124,7 +125,7 @@ class RadioDeck extends IntermediaryRadio
         return $icons;
     }
 
-    public function getIcon($value): ?string
+    public function getIcon($value): string | BackedEnum | null
     {
         return $this->getIcons()[$value] ?? null;
     }

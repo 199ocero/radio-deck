@@ -109,6 +109,7 @@ use JaOcero\RadioDeck\Forms\Components\RadioDeck;
 use Filament\Support\Enums\IconSize;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\IconPosition;
+use Filament\Support\Icons\Heroicon;
 
 public static function form(Form $form): Form
 {
@@ -132,7 +133,7 @@ public static function form(Form $form): Form
                     'linux' => 'Linux Desktop App',
                 ])
                 ->icons([
-                    'ios' => 'heroicon-m-device-phone-mobile',
+                    'ios' => Heroicon::DevicePhoneMobile,
                     'android' => 'heroicon-m-device-phone-mobile',
                     'web' => 'heroicon-m-globe-alt',
                     'windows' => 'heroicon-m-computer-desktop',
@@ -140,7 +141,7 @@ public static function form(Form $form): Form
                     'linux' => 'heroicon-m-computer-desktop',
                 ])
                 ->required()
-                ->iconSizes(IconSize::Medium) // Medium | Small | Large | ExtraLarge | TwoExtraLarge
+                ->iconSizes(IconSize::Medium) // Medium | Small | Large | ExtraLarge | TwoExtraLarge or string value like 'md' | 'sm' | 'lg' | 'xl' | '2xl'
                 ->iconPosition(IconPosition::Before) // Before | After
                 ->alignment(Alignment::Center) // Start | Center | End
                 ->optionGap('gap-5') // Gap between Options and Descriptions between the Icon
@@ -183,6 +184,7 @@ You can also utilize an Enum class for `->options()`, `->descriptions()`, and `-
 
 namespace App\Filament\Enums;
 
+use BackedEnum;
 use Filament\Support\Contracts\HasLabel;
 use JaOcero\RadioDeck\Contracts\HasDescriptions;
 use JaOcero\RadioDeck\Contracts\HasIcons;
@@ -220,10 +222,10 @@ enum AssetType: string implements HasLabel, HasDescriptions, HasIcons
         };
     }
 
-    public function getIcons(): ?string
+    public function getIcons(): string | BackedEnum | null
     {
         return match ($this) {
-            self::iOs => 'heroicon-m-device-phone-mobile',
+            self::iOs => Heroicon::DevicePhoneMobile,
             self::Android => 'heroicon-m-device-phone-mobile',
             self::Web => 'heroicon-m-globe-alt',
             self::Windows => 'heroicon-m-computer-desktop',

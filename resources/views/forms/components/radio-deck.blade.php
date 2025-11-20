@@ -62,22 +62,11 @@
                     ])>
                     @if ($iconExists)
                         @php
-                            $iconSizeValue = $getIconSize() ?? 'md';
-
-                            $iconSizeClass = match ($iconSizeValue) {
-                                'xs' => 'h-4 w-4',
-                                'sm' => 'h-5 w-5',
-                                'md' => 'h-6 w-6',
-                                'lg' => 'h-8 w-8',
-                                'xl' => 'h-10 w-10',
-                                '2xl' => 'h-12 w-12',
-                                default => $iconSizeValue,
-                            };
+                            $iconSizeValue = $getIconSize() ?? IconSize::Medium;
                         @endphp
 
-                        <x-filament::icon :icon="$icon" @class([
+                        <x-filament::icon :icon="$icon" :size="$iconSizeValue" @class([
                             'flex-shrink-0',
-                            $iconSizeClass,
                             match ($color) {
                                 'gray' => 'fi-color-gray text-gray-600 dark:text-gray-500',
                                 default => 'fi-color-custom text-custom-600 dark:text-custom-500',
