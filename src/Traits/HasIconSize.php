@@ -12,7 +12,7 @@ trait HasIconSize
     /**
      * Define the size of the icon.
      *
-     * @param  string|IconSize|Closure|null  $size  The icon size (e.g., IconSize::Medium, 'lg', 'h-12 w-12').
+     * @param  string|IconSize|Closure|null  $size  The icon size (e.g., IconSize::Medium, 'lg').
      */
     public function iconSize(string|IconSize|Closure|null $size): static
     {
@@ -21,14 +21,14 @@ trait HasIconSize
         return $this;
     }
 
-    public function getIconSize(): ?string
+    public function getIconSize(): string|IconSize|null
     {
         $size = $this->evaluate($this->iconSize);
 
-        if ($size instanceof IconSize) {
-            return $size->value;
+        if (! is_string($size)) {
+            return $size;
         }
 
-        return $size;
+        return IconSize::tryFrom($size) ?? $size;
     }
 }
