@@ -2,6 +2,34 @@
 
 All notable changes to `radio-deck` will be documented in this file.
 
+## Unreleased
+
+### Added
+
+* Filament v5 enum support: `options(Enum::class)` now reads `HasDescription`, `HasIcon` and `HasColor` automatically
+* `relationship()` for `BelongsTo` and `BelongsToMany`, with `pivotData()` and `getOption{Label,Description,Icon,Color}FromRecordUsing()`
+* `searchable()`, `bulkToggleable()`, `minItems()` and `maxItems()` for multiple selection
+* `boolean()`, `inline()`, `tooltips()` and `selectionIndicator()`
+* `Heroicon` enum and `Htmlable` icons, and `Color` palette arrays
+* Stable `fi-fo-radio-deck-*` CSS hook classes
+
+### Fixed
+
+* Submitted values are now validated against the enabled options
+* Selected values are cast with Filament state casts, so enum and array model casts work
+* Cards are keyboard accessible: inputs are visually hidden instead of `display: none`, with a focus ring, `radiogroup`/`group` roles and ARIA attributes
+* Cards show a danger ring when the field has a validation error
+* `gridDirection(GridDirection::Column)` is now respected (rows remain the default)
+* Icons, descriptions and colors are no longer re-evaluated for every option
+
+### Deprecated
+
+* `JaOcero\RadioDeck\Contracts\HasDescriptions` and `HasIcons`. Use Filament's `HasDescription` and `HasIcon`
+
+### Removed
+
+* The unused Tailwind CSS v3 build pipeline and the empty `TestsRadioDeck` testing mixin
+
 ## v1.4 - 2025-08-28
 
 ### What's Changed
