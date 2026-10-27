@@ -25,6 +25,7 @@ const defaultOptions = {
     treeShaking: true,
     target: ['es2020'],
     minify: !isDev,
+    charset: 'ascii',
     plugins: [{
         name: 'watchPlugin',
         setup: function (build) {
@@ -45,6 +46,6 @@ const defaultOptions = {
 
 compile({
     ...defaultOptions,
-    entryPoints: ['./resources/js/index.js'],
-    outfile: './resources/dist/radio-deck.js',
+    entryPoints: ['./resources/js/components/radio-deck.js'],
+    outfile: './resources/dist/components/radio-deck.js',
 })

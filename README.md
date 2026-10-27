@@ -1,7 +1,7 @@
 # Radio Deck
 
 <div class="filament-hidden">
-    
+
 ![Header](https://raw.githubusercontent.com/199ocero/radio-deck/main/art/images/jaocero-radio-deck.jpeg)
 
 </div>
@@ -9,250 +9,285 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jaocero/radio-deck.svg?style=flat-square)](https://packagist.org/packages/jaocero/radio-deck)
 [![Total Downloads](https://img.shields.io/packagist/dt/jaocero/radio-deck.svg?style=flat-square)](https://packagist.org/packages/jaocero/radio-deck)
 
-Turn filament default radio button into a selectable card with icons, title and description.
+Turn Filament's radio and checkbox list into selectable cards with icons, titles, descriptions and colors.
 
 ## Requirements
 
-- FilamentPHP v4.x
 - PHP 8.2+
-- Laravel v11.28+
-- Tailwind CSS v4.0+
+- Laravel 11.28+
+- Filament v4.x or v5.x
+- A [custom Filament theme](https://filamentphp.com/docs/5.x/styling/overview#creating-a-custom-theme) (Tailwind CSS v4)
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 composer require jaocero/radio-deck
 ```
 
-### For FilamentPHP v4 Users
-
-To adhere to Filament's theming approach, you'll be required to employ a personalized theme in order to utilize this plugin.
-
-> **Custom Theme Installation**
-> [Filament v4 Docs - Creating a Custom Theme](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme)
-
-Instead of adding the plugin's views to your `tailwind.config.js` file, add the following source directive to your custom theme's CSS file (usually `resources/css/filament/admin/theme.css`):
+Add the plugin's views to your custom theme's CSS file (usually `resources/css/filament/admin/theme.css`), then rebuild your assets:
 
 ```css
 @source '../../../../vendor/jaocero/radio-deck/resources/views';
 ```
 
-This will include the plugin's styles during the compilation process.
-
-## Migration from v3 to v4
-
-If you're upgrading from Radio Deck v3 to v4, please follow these steps:
-
-### 1. Update Dependencies
+Publish the plugin's JavaScript (used by `searchable()` and `bulkToggleable()`):
 
 ```bash
-composer require jaocero/radio-deck:^2.0
-```
-
-### 2. Create a Custom Theme
-
-Since FilamentPHP v4 requires custom themes for plugins, you need to create one:
-
-```bash
-php artisan make:filament-theme
-```
-
-### 3. Update Theme Configuration
-
-**Remove** the old configuration from your `tailwind.config.js`:
-
-```js
-// Remove this from tailwind.config.js
-content: [
-    ...
-    './vendor/jaocero/radio-deck/resources/views/**/*.blade.php', // Remove this line
-]
-```
-
-**Add** the source directive to your theme's CSS file instead:
-
-```css
-/* Add this to resources/css/filament/admin/theme.css */
-@source '../../../../vendor/jaocero/radio-deck/resources/views';
-```
-
-### 4. Update Import Statements
-
-Update your import statements to use the new namespace structure:
-
-```php
-// Old (v1.x)
-use JaOcero\RadioDeck\Forms\Components\RadioDeck;
-
-// New (v2.x) - Same import, but make sure you're using v2.x
-use JaOcero\RadioDeck\Forms\Components\RadioDeck;
-```
-
-### 5. Method Changes
-
-Some method names have been updated for better consistency:
-
-```php
-// Old method
-->gap('gap-4')
-
-// New method (renamed for clarity & to avoid conflicts with Filament’s built-in gap)
-->optionsGap('gap-4') 
+php artisan filament:assets
 ```
 
 ## Usage
 
 ```php
-use JaOcero\RadioDeck\Forms\Components\RadioDeck;
-use Filament\Support\Enums\IconSize;
+use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\IconPosition;
+use Filament\Support\Enums\IconSize;
+use Filament\Support\Icons\Heroicon;
+use JaOcero\RadioDeck\Forms\Components\RadioDeck;
 
-public static function form(Form $form): Form
+public static function configure(Schema $schema): Schema
 {
-    return $form
-        ->schema([
-            RadioDeck::make('name')
+    return $schema
+        ->components([
+            RadioDeck::make('platform')
                 ->options([
                     'ios' => 'iOS',
                     'android' => 'Android',
                     'web' => 'Web',
-                    'windows' => 'Windows',
-                    'mac' => 'Mac',
-                    'linux' => 'Linux',
                 ])
                 ->descriptions([
-                    'ios' => 'iOS Mobile App',
-                    'android' => 'Android Mobile App',
-                    'web' => 'Web App',
-                    'windows' => 'Windows Desktop App',
-                    'mac' => 'Mac Desktop App',
-                    'linux' => 'Linux Desktop App',
+                    'ios' => 'iOS mobile app',
+                    'android' => 'Android mobile app',
+                    'web' => 'Web app',
                 ])
                 ->icons([
-                    'ios' => 'heroicon-m-device-phone-mobile',
-                    'android' => 'heroicon-m-device-phone-mobile',
-                    'web' => 'heroicon-m-globe-alt',
-                    'windows' => 'heroicon-m-computer-desktop',
-                    'mac' => 'heroicon-m-computer-desktop',
-                    'linux' => 'heroicon-m-computer-desktop',
+                    'ios' => Heroicon::OutlinedDevicePhoneMobile,
+                    'android' => 'heroicon-o-device-phone-mobile',
+                    'web' => Heroicon::OutlinedGlobeAlt,
                 ])
                 ->required()
-                ->iconSizes(IconSize::Medium) // Medium | Small | Large | ExtraLarge | TwoExtraLarge
+                ->iconSize(IconSize::Medium) // ExtraSmall | Small | Medium | Large | ExtraLarge | TwoExtraLarge, or classes like 'size-12'
                 ->iconPosition(IconPosition::Before) // Before | After
                 ->alignment(Alignment::Center) // Start | Center | End
-                ->optionGap('gap-5') // Gap between Options and Descriptions between the Icon
-                ->padding('px-4 py-6') // Padding around the deck
-                ->extraCardsAttributes([ // Extra attributes for card elements
-                    'class' => 'rounded-xl'
-                ])
-                ->extraOptionsAttributes([ // Extra attributes for option elements
-                    'class' => 'text-3xl leading-none w-full flex flex-col items-center justify-center p-4'
-                ])
-                ->extraDescriptionsAttributes([ // Extra attributes for description elements
-                    'class' => 'text-sm font-light text-center'
-                ])
-                ->multiple() // Enable multiple selection (returns array)
-                ->colors('primary')
-                // or you can use an array of colors per option or you can use one color for all options
-                // ->colors([
-                //     'ios' => 'blue',
-                //     'android' => 'green',
-                //     'web' => 'purple',
-                // ])
-                ->columns(3)
-                // or you can use how many columns every screen size
-                // ->columns([
-                //     'sm' => 1,
-                //     'md' => 2,
-                //     'lg' => 3,
-                // ])
-                ->columnSpanFull()
+                ->optionsGap('gap-5') // Gap between the icon and the text inside a card
+                ->padding('px-4 py-6') // Padding inside each card
+                ->extraCardsAttributes(['class' => 'rounded-xl'])
+                ->extraOptionsAttributes(['class' => 'text-lg'])
+                ->extraDescriptionsAttributes(['class' => 'text-sm font-light'])
+                ->color('primary') // Color of every option
+                ->columns(3), // or ['sm' => 1, 'md' => 2, 'lg' => 3]
         ]);
 }
 ```
 
-### Using Enums
+### Colors
 
-You can also utilize an Enum class for `->options()`, `->descriptions()`, and `->icons()`. Here's an example:
+Use one color for every option, or a color per option. Colors can be names registered with Filament or palettes from `Filament\Support\Colors\Color`:
 
 ```php
-<?php
+use Filament\Support\Colors\Color;
 
-namespace App\Filament\Enums;
+RadioDeck::make('plan')
+    ->options([...])
+    ->colors([
+        'hobby' => 'gray',
+        'pro' => Color::Violet,
+        'team' => Color::hex('#0ea5e9'),
+    ])
+```
 
+`color()` is only the fallback for options without their own color. A color from `colors()`, the options enum's `HasColor`, or `getOptionColorFromRecordUsing()` always wins. To force one color on every option, pass it to `colors()` instead:
+
+```php
+RadioDeck::make('platform')
+    ->options(Platform::class)
+    ->colors('danger') // Overrides the enum's colors
+```
+
+### Using enums
+
+Pass an enum to `options()` and RadioDeck reads labels, descriptions, icons and colors from Filament's own enum contracts. The selected value is cast to the enum.
+
+```php
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasDescription;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
-use JaOcero\RadioDeck\Contracts\HasDescriptions;
-use JaOcero\RadioDeck\Contracts\HasIcons;
+use Filament\Support\Icons\Heroicon;
 
-enum AssetType: string implements HasLabel, HasDescriptions, HasIcons
+enum Platform: string implements HasColor, HasDescription, HasIcon, HasLabel
 {
-    case iOs = 'ios';
-    case Android = 'android';
+    case Ios = 'ios';
     case Web = 'web';
-    case Windows = 'windows';
-    case Mac = 'mac';
-    case Linux = 'linux';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
-            self::iOs => 'iOS',
-            self::Android => 'Android',
+            self::Ios => 'iOS',
             self::Web => 'Web',
-            self::Windows => 'Windows',
-            self::Mac => 'Mac',
-            self::Linux => 'Linux',
         };
     }
 
-    public function getDescriptions(): ?string
+    public function getDescription(): string
     {
         return match ($this) {
-            self::iOs => 'iOS Mobile App',
-            self::Android => 'Android Mobile App',
-            self::Web => 'Web App',
-            self::Windows => 'Windows Desktop App',
-            self::Mac => 'Mac Desktop App',
-            self::Linux => 'Linux Desktop App',
+            self::Ios => 'iOS mobile app',
+            self::Web => 'Web app',
         };
     }
 
-    public function getIcons(): ?string
+    public function getIcon(): Heroicon
     {
         return match ($this) {
-            self::iOs => 'heroicon-m-device-phone-mobile',
-            self::Android => 'heroicon-m-device-phone-mobile',
-            self::Web => 'heroicon-m-globe-alt',
-            self::Windows => 'heroicon-m-computer-desktop',
-            self::Mac => 'heroicon-m-computer-desktop',
-            self::Linux => 'heroicon-m-computer-desktop',
+            self::Ios => Heroicon::OutlinedDevicePhoneMobile,
+            self::Web => Heroicon::OutlinedGlobeAlt,
+        };
+    }
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::Ios => 'gray',
+            self::Web => 'info',
         };
     }
 }
 ```
 
-Usage with Enum:
+```php
+RadioDeck::make('platform')
+    ->options(Platform::class)
+```
+
+Explicit `descriptions()`, `icons()` and `colors()` arrays still take priority over the enum.
+
+> The `JaOcero\RadioDeck\Contracts\HasDescriptions` and `HasIcons` contracts (with `->descriptions(Enum::class)` and `->icons(Enum::class)`) still work, but are deprecated. Implement Filament's `HasDescription` and `HasIcon` instead.
+
+### Multiple selection
+
+`multiple()` renders checkboxes and stores an array. Cast the attribute to `array` (or an enum collection) on your model.
 
 ```php
-public static function form(Form $form): Form
-{
-    return $form
-        ->schema([
-            RadioDeck::make('name')
-                ->options(AssetType::class)
-                ->descriptions(AssetType::class)
-                ->icons(AssetType::class)
-                ->required()
-                ->iconPosition(IconPosition::Before)
-                ->alignment(Alignment::Center)
-                ->colors('primary')
-                ->columns(3),
-        ])
-        ->columns('full');
-}
+RadioDeck::make('regions')
+    ->options([...])
+    ->multiple()
+    ->minItems(1)
+    ->maxItems(3)
+```
+
+### Searching and bulk toggling
+
+```php
+RadioDeck::make('regions')
+    ->options([...])
+    ->multiple()
+    ->searchable()
+    ->bulkToggleable() // "Select all" and "Deselect all", multiple() only
+    ->searchPrompt('Search regions')
+    ->noSearchResultsMessage('No regions found.')
+    ->searchDebounce(300)
+```
+
+Customize the bulk toggle actions with `selectAllAction(fn (Action $action) => $action->label(...))` and `deselectAllAction()`.
+
+### Integrating with an Eloquent relationship
+
+For a `BelongsTo` relationship, name the field after the foreign key:
+
+```php
+use App\Models\Category;
+
+RadioDeck::make('category_id')
+    ->relationship('category', 'name')
+    ->getOptionDescriptionFromRecordUsing(fn (Category $record): ?string => $record->description)
+    ->getOptionIconFromRecordUsing(fn (Category $record): ?string => $record->icon)
+    ->getOptionColorFromRecordUsing(fn (Category $record): ?string => $record->color)
+```
+
+For a `BelongsToMany` relationship, enable `multiple()`. The selection is synced to the pivot table, and `pivotData()` is saved with it:
+
+```php
+RadioDeck::make('features')
+    ->relationship(titleAttribute: 'name')
+    ->multiple()
+    ->pivotData(['note' => 'Added by an admin'])
+```
+
+`relationship()` also accepts a `modifyQueryUsing` closure, and `getOptionLabelFromRecordUsing()` customizes the labels.
+
+### Boolean options
+
+```php
+RadioDeck::make('is_public')
+    ->boolean('Public', 'Private')
+    ->icons([1 => Heroicon::OutlinedLockOpen, 0 => Heroicon::OutlinedLockClosed])
+```
+
+### Inline layout
+
+`inline()` places the cards next to each other instead of in a grid:
+
+```php
+RadioDeck::make('size')
+    ->options([...])
+    ->inline()
+```
+
+In a grid, cards fill rows first. `gridDirection(GridDirection::Column)` fills columns first instead.
+
+### Tooltips
+
+```php
+RadioDeck::make('plan')
+    ->options([...])
+    ->tooltips([
+        'enterprise' => 'Contact sales to unlock this plan.',
+    ])
+```
+
+### Selection indicator
+
+Show a radio or checkbox style indicator in the corner of each card:
+
+```php
+RadioDeck::make('plan')
+    ->options([...])
+    ->selectionIndicator()
+```
+
+The indicator follows `alignment()`: vertically centered by default, at the top with `Alignment::Start` and at the bottom with `Alignment::End`. Stacked cards (with a `flex-col` class) keep it in the top corner. With the default padding, cards reserve space on the right for the indicator. If you set your own `padding()`, it's used as-is, so keep it symmetric for centered tiles.
+
+### Disabling options
+
+```php
+RadioDeck::make('plan')
+    ->options([...])
+    ->disableOptionWhen(fn (string $value): bool => $value === 'enterprise')
+```
+
+Submitted values are validated against the enabled options automatically.
+
+### Styling
+
+Every part of the card has a stable CSS class you can target from your theme: `fi-fo-radio-deck`, `fi-fo-radio-deck-option`, `fi-fo-radio-deck-card`, `fi-fo-radio-deck-icon`, `fi-fo-radio-deck-label`, `fi-fo-radio-deck-description` and `fi-fo-radio-deck-indicator`.
+
+## Upgrading
+
+### From v1.x (Filament v3)
+
+1. Create a custom theme with `php artisan make:filament-theme`.
+2. Remove the plugin from the `content` array of your `tailwind.config.js` and add the `@source` directive shown above to your theme CSS.
+3. Rename `->gap()` to `->optionsGap()`.
+
+### Deprecated enum contracts
+
+Replace `JaOcero\RadioDeck\Contracts\HasDescriptions::getDescriptions()` and `HasIcons::getIcons()` with Filament's `HasDescription::getDescription()` and `HasIcon::getIcon()`. You can then drop the `->descriptions(Enum::class)` and `->icons(Enum::class)` calls, because `->options(Enum::class)` picks them up.
+
+## Testing
+
+```bash
+composer test
 ```
 
 ## Changelog

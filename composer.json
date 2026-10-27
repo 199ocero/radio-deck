@@ -1,6 +1,6 @@
 {
     "name": "jaocero/radio-deck",
-    "description": "Turn filament default radio button into a selectable card with icons, title and description.",
+    "description": "Turn Filament's radio and checkbox list into selectable cards with icons, titles, descriptions and colors.",
     "keywords": [
         "jaocero",
         "laravel",
@@ -25,21 +25,22 @@
     "require": {
         "php": "^8.2",
         "filament/forms": "^4.0|^5.0",
-        "spatie/laravel-package-tools": "^1.15.0",
-        "illuminate/contracts": "^11.0|^12.0|^13.0"
+        "illuminate/contracts": "^11.28|^12.0|^13.0",
+        "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
+        "filament/filament": "^4.0|^5.0",
         "laravel/pint": "^1.24",
         "nunomaduro/collision": "^8.1",
-        "orchestra/testbench": "^9.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0"
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0",
+        "pestphp/pest-plugin-arch": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+        "pestphp/pest-plugin-livewire": "^3.0|^4.0"
     },
     "autoload": {
         "psr-4": {
-            "JaOcero\\RadioDeck\\": "src/",
-            "JaOcero\\RadioDeck\\Database\\Factories\\": "database/factories/"
+            "JaOcero\\RadioDeck\\": "src/"
         }
     },
     "autoload-dev": {
@@ -55,8 +56,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
+            "pestphp/pest-plugin": true
         }
     },
     "extra": {

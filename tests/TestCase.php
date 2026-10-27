@@ -5,16 +5,11 @@ namespace JaOcero\RadioDeck\Tests;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
-use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
-use Filament\Infolists\InfolistsServiceProvider;
-use Filament\Notifications\NotificationsServiceProvider;
-use Filament\SpatieLaravelSettingsPluginServiceProvider;
-use Filament\SpatieLaravelTranslatablePluginServiceProvider;
+use Filament\Schemas\SchemasServiceProvider;
 use Filament\Support\SupportServiceProvider;
-use Filament\Tables\TablesServiceProvider;
-use Filament\Widgets\WidgetsServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use JaOcero\RadioDeck\RadioDeckServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -22,43 +17,57 @@ use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 
 class TestCase extends Orchestra
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'JaOcero\\RadioDeck\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
-    }
-
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             ActionsServiceProvider::class,
             BladeCaptureDirectiveServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,
-            FilamentServiceProvider::class,
             FormsServiceProvider::class,
-            InfolistsServiceProvider::class,
             LivewireServiceProvider::class,
-            NotificationsServiceProvider::class,
-            SpatieLaravelSettingsPluginServiceProvider::class,
-            SpatieLaravelTranslatablePluginServiceProvider::class,
+            SchemasServiceProvider::class,
             SupportServiceProvider::class,
-            TablesServiceProvider::class,
-            WidgetsServiceProvider::class,
             RadioDeckServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    protected function defineEnvironment($app): void
     {
-        config()->set('database.default', 'testing');
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('app.key', 'base64:'.base64_encode(str_repeat('a', 32)));
+    }
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_radio-deck_table.php.stub';
-        $migration->up();
-        */
+    protected function defineDatabaseMigrations(): void
+    {
+        Schema::create('categories', function (Blueprint $table): void {
+            $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('color')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('tags', function (Blueprint $table): void {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('posts', function (Blueprint $table): void {
+            $table->id();
+            $table->foreignId('category_id')->nullable();
+            $table->string('platform')->nullable();
+            $table->json('targets')->nullable();
+            $table->boolean('is_published')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('post_tag', function (Blueprint $table): void {
+            $table->foreignId('post_id');
+            $table->foreignId('tag_id');
+            $table->string('note')->nullable();
+        });
     }
 }
