@@ -8,29 +8,44 @@ use Filament\Forms\Components\Concerns\CanDisableOptionsWhenSelectedInSiblingRep
 use Filament\Forms\Components\Concerns\CanFixIndistinctState;
 use Filament\Forms\Components\Concerns\HasExtraInputAttributes;
 use Filament\Forms\Components\Concerns\HasGridDirection;
+use Filament\Forms\Components\Concerns\HasNestedRecursiveValidationRules;
 use Filament\Forms\Components\Concerns\HasOptions;
 use Filament\Forms\Components\Contracts\CanDisableOptions as ContractsCanDisableOptions;
+use Filament\Forms\Components\Contracts\HasNestedRecursiveValidationRules as ContractsHasNestedRecursiveValidationRules;
 use Filament\Forms\Components\Field;
+use Filament\Support\Contracts\HasDescription;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
+use JaOcero\RadioDeck\Contracts\HasDescriptions as LegacyHasDescriptions;
+use UnitEnum;
 
-class IntermediaryRadio extends Field implements ContractsCanDisableOptions
+class IntermediaryRadio extends Field implements ContractsCanDisableOptions, ContractsHasNestedRecursiveValidationRules
 {
     use CanDisableOptionsWhenSelectedInSiblingRepeaterItems;
     use CanFixIndistinctState;
     use ConcernCanDisableOptions;
     use HasExtraInputAttributes;
     use HasGridDirection;
+    use HasNestedRecursiveValidationRules;
     use HasOptions;
 
+    /**
+     * @var array<string | Htmlable> | Arrayable | class-string<UnitEnum> | Closure
+     */
     protected array|Arrayable|Closure|string $descriptions = [];
 
     /**
-     * @param  array<string | Htmlable> | Arrayable | string | Closure  $descriptions
+     * @var ?array<string | Htmlable>
+     */
+    protected ?array $cachedDescriptions = null;
+
+    /**
+     * @param  array<string | Htmlable> | Arrayable | class-string<UnitEnum> | Closure  $descriptions
      */
     public function descriptions(array|Arrayable|string|Closure $descriptions): static
     {
         $this->descriptions = $descriptions;
+        $this->cachedDescriptions = null;
 
         return $this;
     }
@@ -52,17 +67,58 @@ class IntermediaryRadio extends Field implements ContractsCanDisableOptions
     }
 
     /**
+     * Descriptions are resolved from an explicit array, an enum class passed to
+     * `descriptions()`, or the enum passed to `options()` when it implements
+     * Filament's `HasDescription` contract.
+     *
      * @return array<string | Htmlable>
      */
     public function getDescriptions(): array
     {
+        if ($this->cachedDescriptions !== null) {
+            return $this->cachedDescriptions;
+        }
+
         $descriptions = $this->evaluate($this->descriptions);
+
+        if (is_string($descriptions) && enum_exists($descriptions)) {
+            $descriptions = $this->getDescriptionsFromEnum($descriptions, fallbackToCaseName: true);
+        }
 
         if ($descriptions instanceof Arrayable) {
             $descriptions = $descriptions->toArray();
         }
 
-        return $descriptions;
+        if (blank($descriptions) && filled($enum = $this->getEnum())) {
+            $descriptions = $this->getDescriptionsFromEnum($enum);
+        }
+
+        return $this->cachedDescriptions = $descriptions ?? [];
+    }
+
+    /**
+     * @param  class-string<UnitEnum>  $enum
+     * @return array<string | Htmlable>
+     */
+    protected function getDescriptionsFromEnum(string $enum, bool $fallbackToCaseName = false): array
+    {
+        $isFilamentEnum = is_a($enum, HasDescription::class, allow_string: true);
+        $isLegacyEnum = is_a($enum, LegacyHasDescriptions::class, allow_string: true);
+
+        if ((! $isFilamentEnum) && (! $isLegacyEnum) && (! $fallbackToCaseName)) {
+            return [];
+        }
+
+        return collect($enum::cases())
+            ->mapWithKeys(fn (UnitEnum $case): array => [
+                ($case->value ?? $case->name) => match (true) {
+                    $isFilamentEnum => $case->getDescription(),
+                    $isLegacyEnum => $case->getDescriptions() ?? $case->name,
+                    default => $case->name,
+                },
+            ])
+            ->filter(fn (mixed $description): bool => filled($description))
+            ->all();
     }
 
     public function getDefaultState(): mixed
